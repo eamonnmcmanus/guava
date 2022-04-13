@@ -48,6 +48,7 @@ import com.google.common.collect.testing.testers.MapRemoveTester;
 import com.google.common.collect.testing.testers.MapReplaceAllTester;
 import com.google.common.collect.testing.testers.MapReplaceEntryTester;
 import com.google.common.collect.testing.testers.MapReplaceTester;
+import com.google.common.collect.testing.testers.MapReversedTester;
 import com.google.common.collect.testing.testers.MapSerializationTester;
 import com.google.common.collect.testing.testers.MapSizeTester;
 import com.google.common.collect.testing.testers.MapToStringTester;
@@ -100,6 +101,7 @@ public class MapTestSuiteBuilder<K, V>
         MapReplaceTester.class,
         MapReplaceAllTester.class,
         MapReplaceEntryTester.class,
+        MapReversedTester.class,
         MapSerializationTester.class,
         MapSizeTester.class,
         MapToStringTester.class);

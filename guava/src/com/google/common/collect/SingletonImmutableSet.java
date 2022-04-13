@@ -61,6 +61,16 @@ final class SingletonImmutableSet<E> extends ImmutableSet<E> {
   }
 
   @Override
+  public E getFirst() {
+    return element;
+  }
+
+  @Override
+  public E getLast() {
+    return element;
+  }
+
+  @Override
   boolean isPartialView() {
     return false;
   }

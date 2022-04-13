@@ -46,6 +46,16 @@ final class SingletonImmutableList<E> extends ImmutableList<E> {
   }
 
   @Override
+  public E getFirst() {
+    return element;
+  }
+
+  @Override
+  public E getLast() {
+    return element;
+  }
+
+  @Override
   public UnmodifiableIterator<E> iterator() {
     return Iterators.singletonIterator(element);
   }

@@ -22,6 +22,7 @@ import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import java.io.Serializable;
 import java.util.Map.Entry;
+import java.util.SequencedCollection;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 import javax.annotation.CheckForNull;
@@ -99,6 +100,11 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   public void forEach(Consumer<? super V> action) {
     checkNotNull(action);
     map.forEach((k, v) -> action.accept(v));
+  }
+
+  @Override
+  public SequencedCollection<V> reversed() {
+    return asList().reversed();
   }
 
   // No longer used for new writes, but kept so that old data can still be read.

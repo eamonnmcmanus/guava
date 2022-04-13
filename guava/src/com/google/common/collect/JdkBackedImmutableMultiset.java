@@ -20,6 +20,7 @@ import com.google.common.annotations.GwtCompatible;
 import com.google.common.primitives.Ints;
 import java.util.Collection;
 import java.util.Map;
+import java.util.SequencedCollection;
 import javax.annotation.CheckForNull;
 
 /**
@@ -87,5 +88,10 @@ final class JdkBackedImmutableMultiset<E> extends ImmutableMultiset<E> {
   @Override
   public int size() {
     return Ints.saturatedCast(size);
+  }
+
+  @Override
+  public SequencedCollection<E> reversed() {
+    return elementSet().reversed();
   }
 }

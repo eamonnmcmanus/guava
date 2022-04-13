@@ -37,6 +37,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SequencedCollection;
 import java.util.Set;
 import java.util.Spliterator;
 import java.util.function.BiConsumer;
@@ -577,6 +578,12 @@ public abstract class ImmutableMultimap<K, V> extends BaseImmutableMultimap<K, V
       return false;
     }
 
+    @Override
+    public SequencedCollection<Entry<K, V>> reversed() {
+      // Inefficient implementation for now
+      return ImmutableList.copyOf(this).reversed();
+    }
+
     private static final long serialVersionUID = 0;
   }
 
@@ -668,6 +675,11 @@ public abstract class ImmutableMultimap<K, V> extends BaseImmutableMultimap<K, V
     @Override
     public int size() {
       return ImmutableMultimap.this.size();
+    }
+
+    @Override
+    public SequencedCollection<K> reversed() {
+      return keySet().reversed();
     }
 
     @Override
@@ -765,6 +777,12 @@ public abstract class ImmutableMultimap<K, V> extends BaseImmutableMultimap<K, V
     @Override
     public int size() {
       return multimap.size();
+    }
+
+    @Override
+    public ImmutableCollection<V> reversed() {
+      // Inefficient implementation for now
+      return ImmutableList.copyOf(this).reversed();
     }
 
     @Override

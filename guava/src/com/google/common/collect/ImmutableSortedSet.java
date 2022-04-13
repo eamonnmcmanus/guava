@@ -850,4 +850,11 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
   Object writeReplace() {
     return new SerializedForm<E>(comparator, toArray());
   }
+
+  @Override
+  public ImmutableSortedSet<E> reversed() {
+    @SuppressWarnings("unchecked")
+    Comparator<E> reversed = (Comparator<E>) comparator.reversed();
+    return ImmutableSortedSet.<E>orderedBy(reversed).addAll(this).build();
+  }
 }

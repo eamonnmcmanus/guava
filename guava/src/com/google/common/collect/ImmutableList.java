@@ -620,6 +620,11 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
     return (size() <= 1) ? this : new ReverseImmutableList<E>(this);
   }
 
+  @Override
+  public ImmutableList<E> reversed() {
+    return reverse();
+  }
+
   private static class ReverseImmutableList<E> extends ImmutableList<E> {
     private final transient ImmutableList<E> forwardList;
 
@@ -667,6 +672,16 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
     public E get(int index) {
       checkElementIndex(index, size());
       return forwardList.get(reverseIndex(index));
+    }
+
+    @Override
+    public E getFirst() {
+      return forwardList.getLast();
+    }
+
+    @Override
+    public E getLast() {
+      return forwardList.getFirst();
     }
 
     @Override

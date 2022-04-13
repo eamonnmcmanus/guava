@@ -22,6 +22,7 @@ import com.google.common.annotations.GwtIncompatible;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.primitives.Ints;
 import java.util.Comparator;
+import java.util.SequencedCollection;
 import java.util.function.ObjIntConsumer;
 import javax.annotation.CheckForNull;
 
@@ -103,6 +104,11 @@ final class RegularImmutableSortedMultiset<E> extends ImmutableSortedMultiset<E>
   @Override
   public ImmutableSortedSet<E> elementSet() {
     return elementSet;
+  }
+
+  @Override
+  public ImmutableSortedSet<E> reversed() {
+    return elementSet.reversed();
   }
 
   @Override

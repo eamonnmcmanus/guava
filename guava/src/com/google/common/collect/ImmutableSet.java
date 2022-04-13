@@ -36,6 +36,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.SequencedSet;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.Spliterator;
@@ -53,7 +54,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 @ElementTypesAreNonnullByDefault
-public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements Set<E> {
+public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements SequencedSet<E> {
   static final int SPLITERATOR_CHARACTERISTICS =
       ImmutableCollection.SPLITERATOR_CHARACTERISTICS | Spliterator.DISTINCT;
 
@@ -979,5 +980,11 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
               delegate, ImmutableList.asImmutableList(dedupedElements, distinct));
       }
     }
+  }
+
+  @Override
+  public ImmutableSet<E> reversed() {
+    // Inefficient implementation for now
+    return ImmutableSet.copyOf(ImmutableList.copyOf(this).reversed());
   }
 }

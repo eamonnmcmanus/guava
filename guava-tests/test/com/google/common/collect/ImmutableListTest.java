@@ -16,8 +16,12 @@
 
 package com.google.common.collect;
 
+import static com.google.common.collect.Iterables.getOnlyElement;
+import static com.google.common.collect.Iterables.unmodifiableIterable;
+import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_QUERIES;
 import static com.google.common.collect.testing.features.CollectionFeature.SERIALIZABLE;
+import static java.lang.reflect.Proxy.newProxyInstance;
 import static java.util.Arrays.asList;
 
 import com.google.common.annotations.GwtCompatible;
@@ -38,11 +42,16 @@ import com.google.common.collect.testing.testers.ListHashCodeTester;
 import com.google.common.testing.CollectorTester;
 import com.google.common.testing.NullPointerTester;
 import com.google.common.testing.SerializableTester;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

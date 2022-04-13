@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.RandomAccess;
+import java.util.SequencedCollection;
 import java.util.Set;
 import java.util.Spliterator;
 import java.util.function.Consumer;
@@ -843,7 +844,10 @@ public final class Iterables {
   @ParametricNullness
   public static <T extends @Nullable Object> T getLast(Iterable<T> iterable) {
     // TODO(kevinb): Support a concurrently modified collection?
-    if (iterable instanceof List) {
+    if (iterable instanceof SequencedCollection) {
+      SequencedCollection<T> sequenced = (SequencedCollection<T>) iterable;
+      return sequenced.getLast();
+    } else if (iterable instanceof List) {
       List<T> list = (List<T>) iterable;
       if (list.isEmpty()) {
         throw new NoSuchElementException();
@@ -872,6 +876,9 @@ public final class Iterables {
       Collection<? extends T> c = (Collection<? extends T>) iterable;
       if (c.isEmpty()) {
         return defaultValue;
+      } else if (iterable instanceof SequencedCollection) {
+        SequencedCollection<T> sequenced = (SequencedCollection<T>) iterable;
+        return sequenced.getLast();
       } else if (iterable instanceof List) {
         return getLastInNonemptyList(Lists.cast(iterable));
       }

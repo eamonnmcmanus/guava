@@ -1163,4 +1163,11 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
   // This class is never actually serialized directly, but we have to make the
   // warning go away (and suppressing would suppress for all nested classes too)
   private static final long serialVersionUID = 0;
+
+  @Override
+  public ImmutableSortedMap<K, V> reversed() {
+    @SuppressWarnings("unchecked")
+    Comparator<K> reversed = (Comparator<K>) comparator().reversed();
+    return ImmutableSortedMap.<K, V>orderedBy(reversed).putAll(this).build();
+  }
 }

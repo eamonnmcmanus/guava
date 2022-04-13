@@ -32,6 +32,7 @@ import com.google.errorprone.annotations.concurrent.LazyInit;
 import com.google.j2objc.annotations.RetainedWith;
 import com.google.j2objc.annotations.WeakOuter;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collection;
@@ -40,7 +41,9 @@ import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.SequencedMap;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.Spliterator;
@@ -68,7 +71,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 @ElementTypesAreNonnullByDefault
-public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
+public abstract class ImmutableMap<K, V> implements SequencedMap<K, V>, Serializable {
 
   /**
    * Returns a {@link Collector} that accumulates elements into an {@code ImmutableMap} whose keys
@@ -1272,5 +1275,12 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    */
   Object writeReplace() {
     return new SerializedForm<>(this);
+  }
+
+  @Override
+  public ImmutableMap<K, V> reversed() {
+    List<Entry<K, V>> entryList = new ArrayList<>(entrySet());
+    Collections.reverse(entryList);
+    return ImmutableMap.copyOf(entryList);
   }
 }

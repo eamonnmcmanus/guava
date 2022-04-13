@@ -24,6 +24,7 @@ import com.google.common.primitives.Ints;
 import com.google.errorprone.annotations.concurrent.LazyInit;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.SequencedCollection;
 import javax.annotation.CheckForNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -183,6 +184,11 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   public ImmutableSet<E> elementSet() {
     ImmutableSet<E> result = elementSet;
     return (result == null) ? elementSet = new ElementSet<E>(Arrays.asList(entries), this) : result;
+  }
+
+  @Override
+  public ImmutableSet<E> reversed() {
+    return elementSet().reversed();
   }
 
   @Override
